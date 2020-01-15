@@ -1,18 +1,16 @@
 package controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import basics.Student;
+import basics.User;
 
 @Controller
 public class UserController {
@@ -42,11 +40,11 @@ public class UserController {
 		return "main-menu";
 	}
 	
-	@RequestMapping("/profile")
-	public String profile(HttpServletRequest request, Model model) {
+	@RequestMapping("/home")
+	public String home(HttpServletRequest request, Model model) {
 
 		// create session factory
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
 				.buildSessionFactory();
 
 		// create session
@@ -57,13 +55,13 @@ public class UserController {
 
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
-
-			Student stud = session.get(Student.class, username);
-			model.addAttribute("role", stud.getRole());
+			
+			User user = session.get(User.class, username);
+			model.addAttribute("role", user.getRole());
 			
 			if (username == null || password == null) {
 				return "login-form";
-			} else if (username.equals(stud.getUsername()) && password.equals(stud.getPassword())) {				return stud.getRole() + "-profile";
+			} else if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {				return user.getRole() + "-profile";
 			} else {				return "login-form";			}
 			
 		} finally {
