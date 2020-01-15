@@ -57,13 +57,16 @@ public class Student extends Users {
 	@Column(name = "points")
 	private int points;
 	
+	@Column(name = "role")
+	private String role;
+	
 	public Student() {
 		super(null, null, null, null);
 		// TODO Auto-generated constructor stub
 	}
 
 	public Student(String username, String password, String firstName, String lastName, int age, String email,
-			long phone_number, int family_income, int siblings, int parent_working_status, String hometown, int points) {
+			long phone_number, int family_income, int siblings, int parent_working_status, String hometown, int points, String role) {
 		super(username, password, firstName, lastName);
 		this.age = age;
 		this.email = email;
@@ -73,6 +76,7 @@ public class Student extends Users {
 		this.parent_working_status = parent_working_status;
 		this.hometown = hometown;
 		this.points = points;
+		this.role = role;
 	}
 	
 	public int getAge() {
@@ -138,11 +142,19 @@ public class Student extends Users {
 	public void setPoints(int points) {
 		this.points = points;
 	}
-	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
-		return "Student [age=" + age + ", email=" + email + ", phoneNumber=" + phone_number  + ", siblings=" + siblings + ", parentWorkingStatus=" + parent_working_status
-				+ ", hometown=" + hometown + ", points=" + points + "]";
+		return "Student [" + super.toString() + "age=" + age + ", phone_number=" + phone_number + ", email=" + email + ", family_income="
+				+ family_income + ", siblings=" + siblings + ", parent_working_status=" + parent_working_status
+				+ ", hometown=" + hometown + ", points=" + points + ", role=" + role + "]";
 	}
-	
 }

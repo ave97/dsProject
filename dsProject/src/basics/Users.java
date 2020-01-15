@@ -48,7 +48,7 @@ public abstract class Users {
 
 	@Override
 	public String toString() {
-		return "Users [username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + "]";
+		return "username=" + username + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName;
 	}
 }

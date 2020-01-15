@@ -1,4 +1,4 @@
-package basics;
+package controller;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import basics.Student;
 
 @Controller
 public class UserController {
@@ -30,6 +32,16 @@ public class UserController {
 		return "login-form";
 	}
 
+	@RequestMapping("/register")
+	public String showRegistrationForm() {
+		return "registration-form";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout() {
+		return "main-menu";
+	}
+	
 	@RequestMapping("/profile")
 	public String profile(HttpServletRequest request, Model model) {
 
@@ -43,34 +55,17 @@ public class UserController {
 		try {
 			session.beginTransaction();
 
-			List<Student> result;
-
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 
 			Student stud = session.get(Student.class, username);
+			model.addAttribute("role", stud.getRole());
 			
-//			result = session.createQuery("from Student s where s.username='" + username + "'").getResultList();
+			if (username == null || password == null) {
+				return "login-form";
+			} else if (username.equals(stud.getUsername()) && password.equals(stud.getPassword())) {				return stud.getRole() + "-profile";
+			} else {				return "login-form";			}
 			
-//			for(Student stud: result) {
-//				System.out.println(stud.toString());
-//			}
-			
-//			return "login-form";
-//
-//			boolean loggedIn = false;
-//			for (int i = 0; i < result.size(); i++) {
-//				if (username.equals(result.get(i).getUsername()) && password.equals(result.get(i).getPassword())) {
-//					loggedIn = true;
-//				}
-//			}
-//			System.out.println(username + " " + password);
-//
-//			if (loggedIn) {
-//				return "profile";
-//			} else {
-//				return "login-form";
-//			}			if (username.equals(stud.getUsername()) && password.equals(stud.getPassword())) {				return "profile";			} else {				return "login-form";			}
 		} finally {
 			factory.close();
 		}
