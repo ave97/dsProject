@@ -9,7 +9,7 @@
 	<properties>
 		<org.springframework.version>5.1.3.RELEASE</org.springframework.version>
 		<org.hibernate.version>5.3.7.Final</org.hibernate.version>
-		<com.mysql>8.0.15</com.mysql>
+		<com.mysql>8.0.16</com.mysql>
 	</properties>
 	<dependencies>
 		<dependency>
